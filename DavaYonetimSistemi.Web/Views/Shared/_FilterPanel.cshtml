@@ -1,0 +1,87 @@
+@model string // "Dava" veya "Icra" olarak gelecek
+
+<div class="card mb-3">
+    <div class="card-header bg-light">
+        <h5 class="mb-0">
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#filterPanel">
+                <i class="fas fa-filter"></i> Filtreleme
+            </button>
+        </h5>
+    </div>
+    <div id="filterPanel" class="collapse show">
+        <div class="card-body">
+            <form id="filterForm" class="row">
+                <!-- Ortak Filtreler -->
+                <div class="col-md-3 mb-3">
+                    <label>Uyap Birimi</label>
+                    <input type="text" class="form-control" name="UyapBirimi">
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label>Esas No</label>
+                    <input type="text" class="form-control" name="EsasNo">
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label>Tarih Aralığı</label>
+                    <div class="input-group">
+                        <input type="date" class="form-control" name="BaslangicTarihi">
+                        <input type="date" class="form-control" name="BitisTarihi">
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label>Sorumlu</label>
+                    <select class="form-control select2" name="Sorumlu">
+                        <option value="">Tümü</option>
+                        <!-- Sorumlular dinamik olarak doldurulacak -->
+                    </select>
+                </div>
+
+                @if (Model == "Dava")
+                {
+                    <div class="col-md-6 mb-3">
+                        <label>Dava Edenler</label>
+                        <input type="text" class="form-control" name="DavaEdenler">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Dava Edilenler</label>
+                        <input type="text" class="form-control" name="DavaEdilenler">
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-6 mb-3">
+                        <label>Alacaklılar</label>
+                        <input type="text" class="form-control" name="Alacaklilar">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Borçlular</label>
+                        <input type="text" class="form-control" name="Borclular">
+                    </div>
+                }
+
+                <div class="col-12">
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-filter"></i> Filtrele
+                        </button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                                <i class="fas fa-download"></i> Rapor Al
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="#" class="dropdown-item" onclick="exportReport('excel')">
+                                    <i class="fas fa-file-excel"></i> Excel
+                                </a>
+                                <a href="#" class="dropdown-item" onclick="exportReport('pdf')">
+                                    <i class="fas fa-file-pdf"></i> PDF
+                                </a>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-info" onclick="showNewRecordModal()">
+                            <i class="fas fa-plus"></i> Yeni Kayıt
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> 

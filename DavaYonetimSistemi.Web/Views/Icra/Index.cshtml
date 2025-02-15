@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = ViewBag.ListTitle ?? "İcra Listesi";
+}
+
+<div class="container-fluid">
+    <!-- Filtreleme Paneli -->
+    @await Html.PartialAsync("_FilterPanel", "Icra")
+
+    <!-- Liste -->
+    <div class="card">
+        <div class="card-body">
+            <table id="recordsTable" class="table table-striped table-bordered" 
+                   data-url="@Url.Action("GetList")"
+                   data-new-url="@Url.Action("Create")"
+                   data-export-url="@Url.Action("Export")"
+                   data-type="Icra">
+                <thead>
+                    <tr>
+                        <th>Uyap Birimi</th>
+                        <th>Esas No</th>
+                        <th>Ofis No</th>
+                        <th>Eski Esas No</th>
+                        <th>Durum</th>
+                        <th>Alacaklılar</th>
+                        <th>Borçlular</th>
+                        <th>Takip Değeri</th>
+                        <th>Tahsilat</th>
+                        <th>Bakiye</th>
+                        <th>Sorumlu</th>
+                        <th>Kayıt T.</th>
+                        <th>Arşiv T.</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Container -->
+<div id="modalContainer"></div>
+
+@section Scripts {
+    <script src="~/lib/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/list.js"></script>
+} 

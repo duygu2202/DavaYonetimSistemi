@@ -1,0 +1,58 @@
+@model IcraCreateDto
+
+<div class="modal fade" id="recordModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Yeni İcra Kaydı</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <form id="createForm" asp-action="Create">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="UyapBirimi">Uyap Birimi</label>
+                                <input asp-for="UyapBirimi" class="form-control" />
+                                <span asp-validation-for="UyapBirimi" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="EsasNo">Esas No</label>
+                                <input asp-for="EsasNo" class="form-control" />
+                                <span asp-validation-for="EsasNo" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <!-- Diğer form alanları... -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#createForm').on('submit', function(e) {
+        e.preventDefault();
+        $.post($(this).attr('action'), $(this).serialize())
+            .done(function(response) {
+                if (response.success) {
+                    $('#recordModal').modal('hide');
+                    $('#recordsTable').DataTable().ajax.reload();
+                    Swal.fire('Başarılı!', 'Kayıt başarıyla oluşturuldu.', 'success');
+                } else {
+                    Swal.fire('Hata!', response.message, 'error');
+                }
+            })
+            .fail(function() {
+                Swal.fire('Hata!', 'Bir hata oluştu.', 'error');
+            });
+    });
+</script> 
